@@ -9,7 +9,7 @@ target_include_directories(lodePNG PUBLIC ${PROJECT_SOURCE_DIR}/lodePNG)
 
 include_directories("waveChopper/include")
 
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/waveChopper/*.cpp ${PROJECT_SOURCE_DIR}/waveChopper/*.h)
+file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/waveChopper/*.cpp ${PROJECT_SOURCE_DIR}/waveChopper/*.h)
 
 add_executable(waveChopper ${SRC_FILES})
 TARGET_LINK_LIBRARIES(waveChopper lodePNG "-lstdc++fs")

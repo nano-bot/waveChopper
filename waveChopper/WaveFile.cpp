@@ -25,7 +25,8 @@ void WaveFile::extractOneCycle() {
 void WaveFile::writePngToFile(const fs::path &pngFile) {
     int16_t *samples = reinterpret_cast<int16_t *>(rawData.get());
     std::cout << header->subchunk2Size / 2 << std::endl;
-    pngWriter.printToFile(samples, samples + header->subchunk2Size / 2, pngFile);
+    //pngWriter.printToFile(samples, samples + header->subchunk2Size / 2, pngFile);
+    pngWriter.printToFile(reinterpret_cast<int16_t *>(rawData.get()), header->subchunk2Size / 2, pngFile);
 }
 
 

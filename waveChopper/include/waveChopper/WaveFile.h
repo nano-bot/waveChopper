@@ -1,6 +1,6 @@
 #pragma once
 
-#include <experimental/filesystem>
+
 #include "WavHeader.h"
 #include "PngWriter.h"
 

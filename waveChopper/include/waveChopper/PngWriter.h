@@ -7,7 +7,23 @@ namespace fs = std::experimental::filesystem;
 class PngWriter {
 
 public:
-    static const int HEIGHT = 2000;
+    static const int WIDTH = 1028;
+    static const int HEIGHT = 1024;
+    static const int INTERPOLATED_SAMPLES_COUNT = 4;
+    static const int RGBA_PIXEL = 4;
+
+    using Color = std::tuple<unsigned char, unsigned char, unsigned char, unsigned char>;
+
+    PngWriter();
+
+
+    template<typename T>
+    void printToFile(const T *values, size_t numOfSamples, const fs::path &outputFile) {
+        auto minValue = std::numeric_limits<T>::min();
+        auto maxValue = std::numeric_limits<T>::max();
+        drawLine(0, 0, 10, 10, {255, 255, 255, 255});
+        encodeOneStep(buffer, WIDTH, HEIGHT, outputFile);
+    }
 
     template<typename IIter>
     void printToFile(IIter begin, IIter end, const fs::path &outputFile) {
@@ -38,7 +54,10 @@ public:
     }
 
 private:
+
     void encodeOneStep(std::vector<unsigned char> &image, int width, int height, const fs::path &outputFile);
+
+    std::vector<unsigned char> buffer;
 
     template<typename T>
     int scaleValue(T sampleValue, T lowerBound, T upperBound) {
@@ -48,6 +67,10 @@ private:
 
         return absScaled * HEIGHT;
     }
+
+    void plot(int x, int y, const Color &color);
+
+    void drawLine(int xStart, int yStart, int xEnd, int yEnd, const Color &color);
 
 
 };
