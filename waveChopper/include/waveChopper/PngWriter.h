@@ -37,6 +37,8 @@ public:
             previousY = scaledValue;
             sampleStep += averagedInterval;
         }
+        // 0 axis
+        drawLine(0, HEIGHT / 2, previousX, HEIGHT / 2, {255, 255, 255, 255});
         encodeOneStep(buffer, WIDTH, HEIGHT, outputFile);
     }
 
@@ -51,8 +53,9 @@ private:
         auto totalBound = upperBound - lowerBound;
 
         auto absScaled = (static_cast<double>(sampleValue) + (totalBound / 2)) / totalBound;
+        auto absScaledInverted = 1 - absScaled;
 
-        return absScaled * HEIGHT;
+        return absScaledInverted * HEIGHT;
     }
 
     void plot(int x, int y, const Color &color);
